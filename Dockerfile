@@ -45,7 +45,7 @@ ENV SERVERNAME=ServerName \
 USER ${USER}
 
 RUN bash steamcmd \
-	+@sSteamCmdForcePlatformType windows \
+	+@sSteamCmdForcePlatformType \
 	+login anonymous \
 	+force_install_dir "${STEAMAPPDIR}" \
 	+app_update "${STEAMAPP_ID}" validate \
