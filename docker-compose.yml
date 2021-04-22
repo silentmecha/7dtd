@@ -16,7 +16,7 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - saved:${STEAM_SAVEDIR}
+      - saved:/home/steam/.local/share/7DaysToDie
   sftp:
     image: atmoz/sftp
     restart: unless-stopped
