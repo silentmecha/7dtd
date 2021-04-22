@@ -81,7 +81,7 @@ Currently the following ports are used.
 | SERVERPORT_1     | UDP  | 26901   |
 | SERVERPORT_2     | UDP  | 26902   |
 
-All these ports need to be forwarded through your router except for `RCONPORT` and `SFT_PORT` unless you wish to externally RCON into the server or remotely edit the save data.
+All these ports need to be forwarded through your router except for `TELNETPORT`, `CONTROLPANELPORT` and `SFT_PORT` unless you wish to externally Telnet into the server, externally use the web control panel or remotely edit the save data.
 
 ## Notes
 Currently this is based off of Ubuntu 18.04 as there are known issues with steamcmd and Ubuntu 20.04. Once Ubuntu 20.04 is stable I will update the images
