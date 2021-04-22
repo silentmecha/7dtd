@@ -80,6 +80,7 @@ Currently the following ports are used.
 | SERVERPORT       | UDP  | 26900   |
 | SERVERPORT_1     | UDP  | 26901   |
 | SERVERPORT_2     | UDP  | 26902   |
+| SFT_PORT         | TCP  | 2222    |
 
 All these ports need to be forwarded through your router except for `TELNETPORT`, `CONTROLPANELPORT` and `SFT_PORT` unless you wish to externally Telnet into the server, externally use the web control panel or remotely edit the save data.
 
