@@ -10,8 +10,8 @@ services:
       - ${CONTROLPANELPORT}:8080/tcp
       - ${SERVERPORT}:26900/tcp
       - ${SERVERPORT}:26900/udp
-      - ${SERVERPORT}:26901/udp
-      - ${SERVERPORT}:26902/udp
+      - ${SERVERPORT_1}:26901/udp
+      - ${SERVERPORT_2}:26902/udp
     env_file: .env
     stdin_open: true
     tty: true
