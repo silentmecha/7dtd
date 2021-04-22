@@ -3,18 +3,20 @@ services:
   server:
 #    command: bash
     build: .
-    image: silentmecha/pixark-linux:latest
+    image: silentmecha/7dtd:latest
     restart: unless-stopped
     ports:
-      - ${PORT}:${PORT}/udp
-      - ${QUERYPORT}:${QUERYPORT}/udp
-      - ${RCONPORT}:${RCONPORT}/tcp
-      - ${CUBEPORT}:${CUBEPORT}/tcp
+      - ${TELNETPORT}:8081/tcp
+      - ${CONTROLPANELPORT}:8080/tcp
+      - ${SERVERPORT}:26900/tcp
+      - ${SERVERPORT}:26900/udp
+      - ${SERVERPORT}:26901/udp
+      - ${SERVERPORT}:26902/udp
     env_file: .env
     stdin_open: true
     tty: true
     volumes:
-      - saved:/home/steam/PixARK-dedicated/ShooterGame/Saved
+      - saved:${STEAM_SAVEDIR}
   sftp:
     image: atmoz/sftp
     restart: unless-stopped
