@@ -12,8 +12,6 @@ USER root
 COPY ./src/entry.sh ${HOME}/entry.sh
 
 RUN set -x \
-	&& useradd -u "${PUID}" -m "${USER}" \
-	&& dpkg --add-architecture i386 \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends --no-install-suggests \
 		xmlstarlet \
