@@ -15,13 +15,14 @@ RUN set -x \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends --no-install-suggests \
 		xmlstarlet \
-		telnet \
+                telnet \
 	&& apt-get autoremove -y \
 	&& rm -rf /var/lib/apt/lists/*
 
+
 RUN set -x \
-	&& mkdir -p "${STEAMAPPDIR}" \
-	&& mkdir -p "${STEAM_SAVEDIR}" \
+        && mkdir -p "${STEAMAPPDIR}" \
+        && mkdir -p "${STEAM_SAVEDIR}" \
 	&& chmod +x "${HOME}/entry.sh" \
 	&& chown -R "${USER}:${USER}" "${HOME}/entry.sh" "${STEAMAPPDIR}" "${STEAM_SAVEDIR}" \
 	&& chmod -R 744 "${STEAM_SAVEDIR}"
@@ -55,6 +56,7 @@ ENV SERVERNAME=ServerName \
 USER ${USER}
 
 RUN bash steamcmd \
+	+@sSteamCmdForcePlatformType \
 	+login anonymous \
 	+force_install_dir "${STEAMAPPDIR}" \
 	+app_update "${STEAMAPP_ID}" validate \
@@ -64,11 +66,18 @@ VOLUME ${STEAM_SAVEDIR}
 
 WORKDIR ${HOME}
 
-EXPOSE 8081/tcp \
+EXPOSE 	8081/tcp \
 		8080/tcp \
 		26900/tcp \
 		26900/udp \
 		26901/udp \
 		26902/udp
+
+# EXPOSE 	${TELNETPORT}/tcp \
+# 		${CONTROLPANELPORT}/tcp \
+# 		${SERVERPORT}/tcp \
+# 		${SERVERPORT}/udp \
+# 		26901/udp \
+# 		26902/udp
 
 CMD ["bash", "entry.sh"]
