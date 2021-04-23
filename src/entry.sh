@@ -1,5 +1,19 @@
 #!/bin/bash
 
+trap "clean_up" SIGTERM
+function clean_up() {
+    for i in {5..1}
+    do
+        echo $i
+        ( echo "say \"Server stopping in ${i}\"\rexit\r" ) | telnet 127.0.0.1 8081
+        sleep 1
+    done
+
+    ( echo "say \"saveworld\"\r" ) | telnet 127.0.0.1 8081
+    ( echo "say \"shutdown\"\r" ) | telnet 127.0.0.1 8081
+    kill -SIGINT $serverPID
+}
+
 cd ${STEAMAPPDIR}
 
 # We assume that if the config is missing, that this is a fresh container
@@ -10,8 +24,8 @@ if [ ! -f "${STEAM_SAVEDIR}/serverconfig.xml" ]; then
     # xmlstarlet ed --inplace -u '/ServerSettings/property[@name="ServerName"]/@value' -x 'string("I have changed")' serverconfig.xml
 fi
 
-# Add in warning for online players using telnet much like for PixARK
-
 export LD_LIBRARY_PATH=.
 
-${STEAMAPPDIR}/7DaysToDieServer.x86_64 -quit -batchmode -nographics -dedicated -configfile=${STEAM_SAVEDIR}/serverconfig.xml
+${STEAMAPPDIR}/7DaysToDieServer.x86_64 -quit -batchmode -nographics -dedicated -configfile=${STEAM_SAVEDIR}/serverconfig.xml & serverPID=$!
+wait $serverPID
+exit 0
