@@ -20,6 +20,7 @@ RUN set -x \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN set -x \
+	&& mkdir -p "${STEAMAPPDIR}" \
 	&& mkdir -p "${STEAM_SAVEDIR}" \
 	&& chmod +x "${HOME}/entry.sh" \
 	&& chown -R "${USER}:${USER}" "${HOME}/entry.sh" "${STEAMAPPDIR}" "${STEAM_SAVEDIR}" \
