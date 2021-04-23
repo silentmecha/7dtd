@@ -9,8 +9,7 @@ function clean_up() {
         sleep 1
     done
 
-    ( echo "say \"saveworld\"\r" ) | telnet 127.0.0.1 8081
-    ( echo "say \"shutdown\"\r" ) | telnet 127.0.0.1 8081
+    ( echo "shutdown\r" ) | telnet 127.0.0.1 8081
     kill -SIGINT $serverPID
 }
 
