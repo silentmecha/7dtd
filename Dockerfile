@@ -20,7 +20,6 @@ RUN set -x \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN set -x \
-	&& wget -c https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-linux-x86-64.tar.gz -O - | tar -xz -C "${HOME}/mcrcon" --strip-components=1\
 	&& mkdir -p "${STEAM_SAVEDIR}" \
 	&& chmod +x "${HOME}/entry.sh" \
 	&& chown -R "${USER}:${USER}" "${HOME}/entry.sh" "${STEAMAPPDIR}" "${STEAM_SAVEDIR}" \
@@ -65,18 +64,11 @@ VOLUME ${STEAM_SAVEDIR}
 
 WORKDIR ${HOME}
 
-EXPOSE 	8081/tcp \
+EXPOSE 8081/tcp \
 		8080/tcp \
 		26900/tcp \
 		26900/udp \
 		26901/udp \
 		26902/udp
-
-# EXPOSE 	${TELNETPORT}/tcp \
-# 		${CONTROLPANELPORT}/tcp \
-# 		${SERVERPORT}/tcp \
-# 		${SERVERPORT}/udp \
-# 		26901/udp \
-# 		26902/udp
 
 CMD ["bash", "entry.sh"]
