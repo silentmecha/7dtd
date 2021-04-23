@@ -12,9 +12,17 @@ USER root
 COPY ./src/entry.sh ${HOME}/entry.sh
 
 RUN set -x \
-	&& mkdir -p "${STEAMAPPDIR}" \
-    && mkdir -p "${HOME}/mcrcon" \
-    && wget -c https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-linux-x86-64.tar.gz -O - | tar -xz -C "${HOME}/mcrcon" --strip-components=1\
+	&& useradd -u "${PUID}" -m "${USER}" \
+	&& dpkg --add-architecture i386 \
+	&& apt-get update \
+	&& apt-get install -y --no-install-recommends --no-install-suggests \
+		xmlstarlet \
+		telnet \
+	&& apt-get autoremove -y \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN set -x \
+	&& wget -c https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-linux-x86-64.tar.gz -O - | tar -xz -C "${HOME}/mcrcon" --strip-components=1\
 	&& mkdir -p "${STEAM_SAVEDIR}" \
 	&& chmod +x "${HOME}/entry.sh" \
 	&& chown -R "${USER}:${USER}" "${HOME}/entry.sh" "${STEAMAPPDIR}" "${STEAM_SAVEDIR}" \
